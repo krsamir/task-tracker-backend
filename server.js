@@ -1,6 +1,6 @@
 import express from "express";
 import { config } from "dotenv";
-import { info } from "logger";
+import { info, requestLogger } from "logger";
 import appRouter from "./app/routes/appRoutes.js";
 
 config();
@@ -8,6 +8,8 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
+app.use(requestLogger);
+
 app.use("/api", appRouter);
 
 app.listen(PORT || 4000, () =>
